@@ -1,1 +1,27 @@
-S
+{% load static %}
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title>{{title}}</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'myapp/css/message.css' %}" />
+    </head>
+    <body class="container">
+        <h1 class="display-4 text-primary">
+            {{title}}</h1>
+        <p>アカウント情報を修正できます</p>
+        <div class="good">
+        <p><a href="{% url 'password' %}">passwordを変更</a></p>
+        <p><a href="{% url 'change' %}">その他の変更</a></p>
+       
+        
+        
+        
+        <p><a href="{% url 'talk_room_back' %}">戻る</a></p>
+        
+        </div>
+
+        <p class="done"><a href="{% url 'index' %}">ログアウト</a></p>
+        
+    </body>
+</html>

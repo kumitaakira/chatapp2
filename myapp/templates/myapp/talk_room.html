@@ -1,1 +1,29 @@
-TR
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'myapp/css/talk_room.css' %}" />
+    {% block extra_style %}{% endblock %}
+    <title>{{user}}</title>
+</head>
+<body>
+   <h1 class="title"> メッセージ一覧</h1>
+   <p><a href="{% url 'talk_room_back' %}">戻る</a></p>
+   <p>あなたが他のユーザーから受け取ったメッセージを全て表示しています</p>
+
+
+<table>
+
+ <tr><th>送信者</th><th>メッセージ</th><th>送信時刻</th></tr>
+{% for item in messages %} 
+<tr><td>{{item.sender}}</td><td>{{item.content}}</td><td>{{item.pub_date}}</td></tr>
+{% endfor %}
+</table>
+
+
+
+    
+</body>
+</html>

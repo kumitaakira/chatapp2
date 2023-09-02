@@ -1,0 +1,64 @@
+h1{
+    text-align: center;
+  }
+  
+  div.reg{
+    background-color: #EEEEEE;
+    margin-left: 15%;
+    margin-right: 15%;
+  }
+  
+  .message{
+    text-align: right;
+    margin-right:20%;
+  }
+  
+  table.reg_form{
+    width: 100%;
+    border-spacing: 10px 30px;
+    padding-left:20px;
+  }
+  
+  .btn{
+      color: #fff;
+      background-color: #000033;
+      font-size: 1.0em;
+      padding: 10px 30px;
+      margin-left:80%;
+  }
+  
+  .btn:hover{
+    color: #fff;
+    background: #000099;
+  }
+
+  body {text-align: center;
+
+  }
+  .account_image { 
+    width: 60px;
+  }
+
+
+  table {
+    margin:10px;
+    font-size:14pt;
+    text-align: center;
+    margin:auto;
+}
+
+
+
+table tr td {
+    background-color: #eee;
+    color: #666;
+    padding: 2px 10px;
+    border-width: 2px;
+}
+
+table.soop td a {
+ 
+    display: block;       /* リンクをブロックレベル化して表示 */
+   
+}
+ 

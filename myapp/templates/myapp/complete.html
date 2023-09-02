@@ -1,0 +1,23 @@
+{% load static %}
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title>{{title}}</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'myapp/css/message.css' %}" />
+    </head>
+    <body class="container">
+        <h1 class="display-4 text-primary">
+            完了</h1>
+        <p>アカウント情報の修正が完了しました</p>
+        
+        <table>
+        <tr><td><a href="{% url 'setting' %}">設定</a></td></tr>
+        
+        </table>
+        
+        
+        <p><a href="{% url 'talk_room_back' %}">友達一覧</a></p>
+        
+    </body>
+</html>

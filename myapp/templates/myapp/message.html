@@ -1,0 +1,32 @@
+{% load static %}
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title>{{title}}</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'myapp/css/message.css' %}" />
+    </head>
+    <body class="container">
+        <h1 class="display-4 text-primary">
+            {{title}}</h1>
+        <p>ここは{{sender}}とのトークルームです</p>
+        
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            
+            <div class="mt-5"><input type="submit" value="送信" class="btn btn-primary"></div>
+           
+        </form>
+        <p>やり取りしたメッセージを全て表示しています</p>
+        <p class="happy"><a href="{% url 'talk_room_back' %}">戻る</a></p>
+        <table class="table">
+         <tr><th>送信者</th><th>メッセージ</th><th>送信時刻</th></tr>
+        {% for item in data %} 
+         <tr><td>{{item.sender}}</td><td>{{item.content}}</td><td>{{item.pub_date}}</td></tr>
+        {% endfor %}
+        </table>
+
+       
+    </body>
+</html>

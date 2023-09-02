@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'myapp/css/friends.css' %}" />
+    {% block extra_style %}{% endblock %}
+    <title>friends</title>
+</head>
+<body>
+    {% block header %}
+    <header class="header">
+        <div class="header-container">
+            <span class="header-container__title">
+                {% block header-title %}{% endblock %}
+            </span>
+        </div>
+    </header>
+    {% endblock %}
+
+    {% block content %}
+    {% endblock %}
+        <h1><font color="red">{{ UserID }}</font>さんようこそ！！</h1>
+       
+
+
+    {% block footer %}
+    <footer class="footer">
+        <div class="footer-container">
+            
+            <div class="footer-container__item">
+                <a href="{% url 'setting' %}" class="footer-item__link">
+                    <span class="footer-item__icon"><img src="{% static 'myapp/img/settings-black-18dp.svg' %}"></span>
+                    <span class="footer-item__text">設定</span>
+                </a>
+            </div>
+        </div>
+    </footer>
+    {% endblock %}
+
+
+
+    <ul class="list-group list-group-flush mt-3">
+        {% for user in Users %}
+        <a href="#" id="user_card">
+            <li class="list-group-item list-group-item-action">
+                <div class="row">
+                    <div class="col">
+                        <img src="#" style="width: 50px; height: 50px;">
+                    </div>
+                    <div class="col">
+                        <div class="row user-add">
+                            <p>@{{UserID}}</p>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </a>
+        {% endfor %}
+    </ul>
+    <table class="soop">
+    {% for item in data %}
+            <tr>
+                <td><img src="{{item.account_image.url}}",alt="がんば" class="account_image"></td>
+                <td><a href="message/{{item.user}}">{{ item.first_name }} {{ item.last_name }}</a></td>
+            </tr>
+            
+    {% endfor %}
+    </table>
+    <br>
+    
+    <p><a href="{% url 'talk_room' %}">messege一覧</a>
+    </p>
+
+   
+   
+</body>
+</html>
+
+
+
+
+
+
+
+
+
