@@ -14,13 +14,12 @@ import environ # 追加
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent.parent.parent
-
+BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 # Tepmpateフォルダへの絶対パスを定義
-TEMPLATE_DIR = BASE_DIR / "Template"
+TEMPLATE_DIR = BASE_DIR / "myapp/templates"
 
 # staticフォルダへの絶対パスを定義
-STATIC_DIR = BASE_DIR / "/Users/kumitaakira/django_project/intern_chat_app/myapp/static"
+
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # メディアフォルダへの絶対パスを定義
@@ -128,16 +127,19 @@ USE_I18N = True
 
 USE_TZ = True
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media_local'
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [STATIC_DIR,]
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "myapp/static")
+]
 
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = MEDIA_DIR / '/Users/kumitaakira/django_project/intern_chat_app/media/media_local'
 
 
 # Default primary key field type
