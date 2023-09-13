@@ -59,6 +59,11 @@ class MessageForm(forms.ModelForm):
         
 
 
+class FindForm(forms.Form):
+    find=forms.CharField(label='友達検索',required=False)
+    
+
+
 
 
 

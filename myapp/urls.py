@@ -18,5 +18,6 @@ urlpatterns = [
     path('change',views.change,name='change'),
     path('password',PasswordChangeView.as_view(success_url='complete'),name='password'),
     path('complete',views.complete,name='complete'),
+    path('find',views.find,name='find'),
     ]
 

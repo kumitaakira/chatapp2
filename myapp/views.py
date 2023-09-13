@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView # テンプレートタグ
-from .forms import AccountForm,AccountForm2, AddAccountForm# ユーザーアカウントフォーム
+from .forms import AccountForm,AccountForm2, AddAccountForm,FindForm   # ユーザーアカウントフォーム
 
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
@@ -47,6 +47,7 @@ def Login(request):
                 params = {
                           'UserID' : request.user,
                           'data': Account.objects.exclude(user=request.user),
+                          'form':FindForm(),
                           
                 }
 
@@ -140,6 +141,7 @@ def talk_room_back(request):
     params = {
         'data': Account.objects.exclude(user=request.user),
         'UserID':request.user,
+        'form':FindForm(),
         }
 
     # データをテンプレートに渡す
@@ -159,7 +161,7 @@ from django.db.models import QuerySet
 
 
 
-
+@login_required
 def talk_room(request):
      # 適切なトークルームIDを設定してください
     
@@ -180,6 +182,8 @@ from .models import Account, Message
 from .forms import AccountForm , MessageForm
 from django.core.paginator import Paginator
 
+
+@login_required
 def message(request,sender):
     if (request.method == 'POST'):
         obj = Message()
@@ -207,6 +211,8 @@ def message(request,sender):
 
     return render (request,'myapp/message.html',params)
 
+
+@login_required
 def change(request):
     obj=Account.objects.get(user=request.user)
     obj2=User.objects.get(username=request.user)
@@ -226,5 +232,26 @@ def change(request):
 def complete(request):
     return render(request,'myapp/complete.html')
 
+@login_required
+def find(request):
+    if (request.method =='POST'):
+
+        detail=request.POST['find']
+        params={
+            'data':Account.objects.exclude(user=request.user)\
+                .filter(Q(first_name__contains=detail)\
+                        |Q(last_name__contains=detail)),
+            'UserID':request.user,
+            'form':FindForm(request.POST),
+        }
+        
+    else:
+        params = {
+        'data': Account.objects.exclude(user=request.user),
+        'UserID':request.user,
+        'form':FindForm(),
+        }
+    return render(request, 'myapp/friends.html', params)
+        
 
 

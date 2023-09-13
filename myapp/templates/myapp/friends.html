@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{% static 'myapp/css/friends.css' %}" />
+    
     {% block extra_style %}{% endblock %}
     <title>friends</title>
 </head>
@@ -41,6 +42,8 @@
 
 
 
+
+
     <ul class="list-group list-group-flush mt-3">
         {% for user in Users %}
         <a href="#" id="user_card">
@@ -59,19 +62,30 @@
         </a>
         {% endfor %}
     </ul>
+    <table>
+        <form action="{% url 'find' %}" method="post">
+            {% csrf_token %}
+            {{form}}
+            <tr><th></th><td><input type="submit" value="検索"></td></tr>
+        </form>
+    </table>
+    <hr>
     <table class="soop">
-    {% for item in data %}
+    
+         {% for item in data %}
             <tr>
                 <td><img src="{{item.account_image.url}}",alt="がんば" class="account_image"></td>
                 <td><a href="message/{{item.user}}">{{ item.first_name }} {{ item.last_name }}</a></td>
             </tr>
-            
-    {% endfor %}
+         {% empty %}
+            <p>一致する友達がいません</p>    
+         {% endfor %}
+
     </table>
     <br>
     
-    <p><a href="{% url 'talk_room' %}">messege一覧</a>
-    </p>
+    <p><a href="{% url 'talk_room' %}">messege一覧</a></p>
+    <p><a href="{% url 'talk_room_back' %}">友達一覧</a></p>
 
    
    

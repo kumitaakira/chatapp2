@@ -3,6 +3,7 @@
 <html lang="ja">
     <head>
         <meta charset="utf-8">
+        
         <title>{{title}}</title>
         <link rel="stylesheet" type="text/css" href="{% static 'myapp/css/message.css' %}" />
     </head>
@@ -17,6 +18,10 @@
             
             <div class="mt-5"><input type="submit" value="送信" class="btn btn-primary"></div>
            
+        </form>
+        <br>
+        <form action="./{{sender}}" method="get">
+            <div class="mt-5"><input type="submit" value="更新"></div
         </form>
         <p>やり取りしたメッセージを全て表示しています</p>
         <p class="happy"><a href="{% url 'talk_room_back' %}">戻る</a></p>

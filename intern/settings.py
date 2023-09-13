@@ -13,10 +13,12 @@ import os # 追加
 import environ # 追加
 from pathlib import Path
 
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 # Tepmpateフォルダへの絶対パスを定義
-TEMPLATE_DIR = BASE_DIR / "myapp/templates"
+
 
 # staticフォルダへの絶対パスを定義
 
@@ -65,7 +67,7 @@ ROOT_URLCONF = 'intern.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [TEMPLATE_DIR,],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -88,8 +90,12 @@ import os
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR / 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'intern_chat_app',
+        'USER':os.environ.get('BE_USER'),
+        'PASSWORD':os.environ.get('DB_PASSWORD'),
+        'HOST':'',
+        'PORT':'',
     }
 }
 
