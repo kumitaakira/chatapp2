@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ja" dir="ltr">
+<head>
+<meta charset="utf-8">
+<title>Login</title>
+<link rel="stylesheet" href='{% static "myapp/css/signup.css" %}'/>
+
+</head>
+<body>
+<h1>ログイン画面</h1>
+
+{% load django_bootstrap5 %}
+
+     {% block main %}
+        <h2>ログイン</h2> 
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="text" value="{{next}}"/>
+            {% bootstrap_form form %}
+            {% bootstrap_button button_type="submit" content="ログイン" %}
+        </form>
+     {% endblock %}
+   <p class="message">アカウントをお持ちですか？：
+   <a href="{% url 'signup' %}">アカウントを作成</a>
+   
+   </p>
+</body>
+</html>

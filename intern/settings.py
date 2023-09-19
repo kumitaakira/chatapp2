@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'myapp',
+    'accounts.apps.AccountsConfig',
+    'django_bootstrap5',
 ]
 
 MIDDLEWARE = [
@@ -188,3 +190,18 @@ if os.path.isfile('.env'): # .envファイルが存在しない時にもエラ�
 
     DEBUG = env('DEBUG')
     ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
+
+
+AUTHENTICATION_BACKENDS= [
+    'django.contrib.auth.backends.ModelBackend',
+    'accounts.backends.EmailAuthBackend',
+]
+
+
+
+
+LOGIN_REDIRECT_URL='/myapp/talk_room_back'
+LOGOUT_REDIRECT_URL='/myapp'
+LOGIN_URL ='/login'
+
+ 
