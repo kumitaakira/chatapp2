@@ -9,8 +9,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 
 from django.contrib.auth.decorators import login_required
-from .models import Account,User
-from django.db.models import Q
+from .models import Account,User,Message
+from django.db.models import Q,F
+from django.db.models import OuterRef, Subquery
 
 def index(request):
     return render(request, "myapp/index.html")
@@ -138,8 +139,20 @@ class  AccountRegistration(TemplateView):
 
 @login_required
 def talk_room_back(request):
+    user=request.user
+    latest_msg = Message.objects.filter(
+        Q(sender=OuterRef("pk"), to_user=user)
+        | Q(to_user=user, sender=OuterRef("pk"))
+    ).order_by("-pub_date")
+
+    friends=Account.objects.exclude(user=user).annotate(
+            latest_msg_talk=Subquery(latest_msg.values("content")[:1]),
+            latest_msg_time=Subquery(latest_msg.values("pub_date")[:1]),
+        ).order_by(F("latest_msg_time").desc(nulls_last=True))
+
+    
     params = {
-        'data': Account.objects.exclude(user=request.user),
+        'data': friends,
         'UserID':request.user,
         'form':FindForm(),
         }
@@ -198,7 +211,8 @@ def message(request,sender):
     one=request.user
     two=User.objects.filter(username=sender).values('id')[:1]
     data = Message.objects.filter(to_user=request.user,sender=two).order_by('pub_date').reverse()
-    data2 = Message.objects.filter(Q(to_user=request.user) & Q(sender=two) | Q(to_user=two) & Q(sender=request.user)).order_by('pub_date').reverse()
+    data2 = Message.objects.filter(Q(to_user=request.user) & Q(sender=two) \
+                                   | Q(to_user=two) & Q(sender=request.user)).order_by('pub_date').reverse()
 
    
     params = {
@@ -240,14 +254,25 @@ def find(request):
         params={
             'data':Account.objects.exclude(user=request.user)\
                 .filter(Q(first_name__contains=detail)\
-                        |Q(last_name__contains=detail)),
+                        |Q(last_name__contains=detail)|Q(mail_address__contains=detail)).all(),
             'UserID':request.user,
             'form':FindForm(request.POST),
         }
         
     else:
+        user=request.user
+        latest_msg = Message.objects.filter(
+        Q(sender=OuterRef("pk"), to_user=user)
+        | Q(to_user=user, sender=OuterRef("pk"))
+        ).order_by("-pub_date")
+
+        friends=Account.objects.exclude(user=user).annotate(
+            latest_msg_talk=Subquery(latest_msg.values("content")[:1]),
+            latest_msg_time=Subquery(latest_msg.values("pub_date")[:1]),
+        ).order_by(F("latest_msg_time").desc(nulls_last=True))
+
         params = {
-        'data': Account.objects.exclude(user=request.user),
+        'data': friends,
         'UserID':request.user,
         'form':FindForm(),
         }

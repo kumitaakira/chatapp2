@@ -56,11 +56,19 @@ class MessageForm(forms.ModelForm):
             'content':'メッセージ',
             
         }
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["content"].widget.attrs["placeholder"] = "メッセージを入力してね！！"
+    
         
 
 
 class FindForm(forms.Form):
     find=forms.CharField(label='友達検索',required=False)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["find"].widget.attrs["placeholder"] = "ユーザー名ORメールアドレス"
     
 
 

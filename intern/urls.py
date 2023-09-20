@@ -25,6 +25,7 @@ from django.contrib.auth.forms import AuthenticationForm as LoginForm
 from accounts.forms import EmailAuthenticationForm
 
 
+
 login_view=LoginView.as_view(
     form_class=EmailAuthenticationForm,
     template_name='accounts/login.html',
@@ -37,7 +38,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('myapp/', include('myapp.urls')),
     path('login/',login_view,name='my_login'),
+    path("__debug__/", include("debug_toolbar.urls")),
+    
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     
+
+

@@ -32,12 +32,12 @@ class TalkRoom(models.Model):
 
 class Message(models.Model):
      to_user = models.ForeignKey(User,null=True,blank=True, on_delete=models.CASCADE)
-     title = models.CharField(max_length=100)
+     title = models.CharField(max_length=100,null=True,blank=True)
      content = models.CharField(max_length=300)
      pub_date = models.DateTimeField(auto_now_add=True)
      sender=models.ForeignKey(User,on_delete=models.CASCADE, related_name='message_sender')
      
      def __str__(self):
-         return '<Message:id=' + str(id) +','+str(self.sender)+'to'+str(self.to_user) +','+ self.title + '(' + str(self.pub_date) + ')>'
+         return '<Message:id=' + str(id) +','+str(self.sender)+'to'+str(self.to_user) + '(' + str(self.pub_date) + ')>'
      
      
